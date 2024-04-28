@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Micro Service API
+  description: Zenn Bookの「Go言語でgRPCでつくるREST API開発 2024年版」のAPIスペックです。
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: ローカル環境
+paths:
+  /health:
+    get:
+      summary: ヘルスチェックエンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Message: OK
+  /health/deep:
+    get:
+      summary: DBヘルスチェックエンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Message: DB OK
+  /signup:
+    get:
+      tags:
+        - "Auth"
+      summary: 認証サービスのユーザー登録エンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                $ref: "#/components/schemas/user"
+        "403":
+          description: Not Authorized
+          content:
+            application/json:
+              example:
+                Message: not authorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                Message: internal server error
+  /signin:
+    get:
+      tags:
+        - "Auth"
+      summary: 認証サービスのログインエンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+               $ref: "#/components/schemas/user"
+        "403":
+          description: Not Authorized
+          content:
+            application/json:
+              example:
+                Message: not authorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                Message: internal server error
+  /signout:
+    get:
+      tags:
+        - "Auth"
+      summary: 認証サービスのログアウトエンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Message: sign out success
+        "403":
+          description: Not Authorized
+          content:
+            application/json:
+              example:
+                Message: not authorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                Message: internal server error
+  /products:
+    get:
+      tags:
+        - "Product"
+      summary: 商品一覧取得エンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                $ref: "#/components/schemas/products"
+        "403":
+          description: Not Authorized
+          content:
+            application/json:
+              example:
+                Message: not authorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                Message: internal server error
+  /products/{product_id}:
+    get:
+      tags:
+        - "Product"
+      summary: 商品詳細取得エンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                $ref: "#/components/schemas/products"
+        "403":
+          description: Not Authorized
+          content:
+            application/json:
+              example:
+                Message: not authorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                Message: internal server error
+  /products/{product_id}/order:
+    get:
+      tags:
+        - "Product"
+      summary: 商品購入エンドポイント
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              example:
+                Message: payment success
+        "403":
+          description: Not Authorized
+          content:
+            application/json:
+              example:
+                Message: not authorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                Message: internal server error
+
+components:
+  schemas:
+    products:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 商品ID
+        name:
+          type: string
+          description: 商品名
+        price:
+          type: integer
+          description: 価格
+        stock:
+          type: integer
+          description: 在庫数
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ユーザーID
+        name:
+          type: string
+          description: ユーザー名
+        email:
+          type: string
+          description: メールアドレス
+        password:
+          type: string
+          description: パスワード
