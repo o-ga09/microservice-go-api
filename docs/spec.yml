@@ -44,13 +44,13 @@ paths:
           content:
             application/json:
               example:
-                Message: not authorized
+                $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
               example:
-                Message: internal server error
+                $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
   /signin:
     get:
       tags:
@@ -68,13 +68,13 @@ paths:
           content:
             application/json:
               example:
-                Message: not authorized
+                $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
               example:
-                Message: internal server error
+                $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
   /signout:
     get:
       tags:
@@ -86,115 +86,121 @@ paths:
           content:
             application/json:
               example:
-                Message: sign out success
+                $ref: "#/components/schemas/user"
         "403":
           description: Not Authorized
           content:
             application/json:
               example:
-                Message: not authorized
+                $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
               example:
-                Message: internal server error
-  /products:
-    get:
+                $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
+  /checkin/{user_id}:
+    post:
       tags:
-        - "Product"
-      summary: 商品一覧取得エンドポイント
+        - "Entrance"
+      summary: ユーザーがチェックインするエンドポイント
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestuser"
       responses:
         "200":
-          description: OK
+          description: チェックイン完了
           content:
             application/json:
               example:
-                $ref: "#/components/schemas/products"
+                $ref: "#/components/schemas/entry"
         "403":
           description: Not Authorized
           content:
             application/json:
               example:
-                Message: not authorized
+                $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
               example:
-                Message: internal server error
-  /products/{product_id}:
-    get:
+                $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
+  /checkout/{user_id}:
+    post:
       tags:
-        - "Product"
-      summary: 商品詳細取得エンドポイント
+        - "Entrance"
+      summary: ユーザーがチェックアウトするエンドポイント
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestuser"
       responses:
         "200":
-          description: OK
+          description: チェックアウト完了
           content:
             application/json:
               example:
-                $ref: "#/components/schemas/products"
+                $ref: "#/components/schemas/entry"
         "403":
           description: Not Authorized
           content:
             application/json:
               example:
-                Message: not authorized
+                $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
               example:
-                Message: internal server error
-  /products/{product_id}/order:
-    get:
-      tags:
-        - "Product"
-      summary: 商品購入エンドポイント
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              example:
-                Message: payment success
-        "403":
-          description: Not Authorized
-          content:
-            application/json:
-              example:
-                Message: not authorized
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              example:
-                Message: internal server error
-
+                $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
 components:
   schemas:
-    products:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: 商品ID
-        name:
-          type: string
-          description: 商品名
-        price:
-          type: integer
-          description: 価格
-        stock:
-          type: integer
-          description: 在庫数
     user:
       type: object
       properties:
-        id:
+        user_id:
           type: integer
           description: ユーザーID
+        user_name:
+          type: string
+          description: ユーザー名
+        user_email:
+          type: string
+          description: メールアドレス
+        user_token:
+          type: string
+          description: ユーザートークン
+    entry:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: ユーザーID
+        user_name:
+          type: string
+          description: ユーザー名
+        user_email:
+          type: string
+          description: メールアドレス
+        paymentmethod:
+          type: string
+          description: 支払い方法
+        checkin_time:
+          type: string
+          description: チェックイン時間
+        checkout_time:
+          type: string
+          description: チェックアウト時間
+        user_token:
+          type: string
+          description: ユーザートークン
+    requestuser:
+      type: object
+      properties:
         name:
           type: string
           description: ユーザー名
@@ -204,3 +210,39 @@ components:
         password:
           type: string
           description: パスワード
+    ERR_NOT_FOUND:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: エラーコード
+        Message:
+          type: string
+          description: メッセージ
+    ERR_BAD_REQUEST:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: エラーコード
+        Message:
+          type: string
+          description: メッセージ
+    ERR_INTERNAL_SERVER_ERROR:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: エラーコード
+        Message:
+          type: string
+          description: メッセージ
+    ERR_UNAUTHORIZED:
+      type: object
+      properties:
+        Code:
+          type: integer
+          description: エラーコード
+        Message:
+          type: string
+          description: メッセージ
