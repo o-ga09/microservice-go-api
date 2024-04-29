@@ -183,6 +183,9 @@ components:
         user_name:
           type: string
           description: ユーザー名
+        type:
+          type: string
+          description: チェックイン もしくは チェックアウト
         paymentmethod:
           type: string
           description: 支払い方法
