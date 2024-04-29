@@ -91,13 +91,13 @@ paths:
           description: Not Authorized
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
   /checkin/{user_id}:
     post:
@@ -108,25 +108,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/requestuser"
+              $ref: "#/components/schemas/entry"
       responses:
         "200":
           description: チェックイン完了
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/entry"
         "403":
           description: Not Authorized
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
   /checkout/{user_id}:
     post:
@@ -137,25 +137,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/requestuser"
+              $ref: "#/components/schemas/entry"
       responses:
         "200":
           description: チェックアウト完了
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/entry"
         "403":
           description: Not Authorized
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/ERR_UNAUTHORIZED"
         "500":
           description: Internal Server Error
           content:
             application/json:
-              example:
+              schema:
                 $ref: "#/components/schemas/ERR_INTERNAL_SERVER_ERROR"
 components:
   schemas:
@@ -183,9 +183,6 @@ components:
         user_name:
           type: string
           description: ユーザー名
-        user_email:
-          type: string
-          description: メールアドレス
         paymentmethod:
           type: string
           description: 支払い方法
@@ -197,19 +194,7 @@ components:
           description: チェックアウト時間
         user_token:
           type: string
-          description: ユーザートークン
-    requestuser:
-      type: object
-      properties:
-        name:
-          type: string
-          description: ユーザー名
-        email:
-          type: string
-          description: メールアドレス
-        password:
-          type: string
-          description: パスワード
+          description: ユーザートークン 
     ERR_NOT_FOUND:
       type: object
       properties:
