@@ -2,6 +2,8 @@ name: Open API Spec
 
 on:
   push:
+    branches:
+      - "main"
 
 jobs:
   build:
