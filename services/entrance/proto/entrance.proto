@@ -2,11 +2,23 @@ syntax = "proto3";
 
 option go_package = "entrance/gen";
 
+import "google/api/annotations.proto";
+
 package entrance;
 
 service EntranceService {
-    rpc CheckIn(CheckInRequest) returns (CheckInResponse);
-    rpc CheckOut(CheckOutRequest) returns (CheckOutResponse);
+    rpc CheckIn(CheckInRequest) returns (CheckInResponse){
+        option (google.api.http) = {
+            post: "/checkin"
+            body: "*"
+        };
+    };
+    rpc CheckOut(CheckOutRequest) returns (CheckOutResponse){
+        option (google.api.http) = {
+            post: "/checkout"
+            body: "*"
+        };
+    };
 }
 
 message CheckInRequest {

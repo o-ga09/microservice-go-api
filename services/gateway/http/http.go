@@ -7,7 +7,8 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	gen "github.com/o-ga09/microservice-go-api/services/healthcheck/proto"
+	Authgen "github.com/o-ga09/microservice-go-api/services/auth/proto"
+	Entrancegen "github.com/o-ga09/microservice-go-api/services/entrance/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -37,12 +38,21 @@ func RunServer(ctx context.Context, port int) error {
 		Handler: mux,
 	}
 
-	healthCheckCon, err := grpc.DialContext(ctx, "localhost:8080", opts...)
+	AuthCon, err := grpc.DialContext(ctx, "authsrv01:8081", opts...)
 	if err != nil {
 		return err
 	}
 
-	if err := gen.RegisterHealthCheckServiceHandlerClient(ctx, mux, gen.NewHealthCheckServiceClient(healthCheckCon)); err != nil {
+	EntranceCon, err := grpc.DialContext(ctx, "entrancesrv01:8083", opts...)
+	if err != nil {
+		return err
+	}
+
+	if err := Authgen.RegisterAuthServiceHandlerClient(ctx, mux, Authgen.NewAuthServiceClient(AuthCon)); err != nil {
+		return err
+	}
+
+	if err := Entrancegen.RegisterEntranceServiceHandlerClient(ctx, mux, Entrancegen.NewEntranceServiceClient(EntranceCon)); err != nil {
 		return err
 	}
 
