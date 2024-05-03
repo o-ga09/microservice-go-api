@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "swaggerviewer:openapi": "file:///Users/taichi/src/microservice-go-api/docs/spec.yml"
+    }
+}
