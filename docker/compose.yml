@@ -1,0 +1,139 @@
+version: "3.9"
+services:
+  entrance-db01:
+    image: mysql:8.0.29
+    platform: linux/amd64
+    container_name: entrance-db01
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: authdb01
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_TCP_PORT: 3306
+      LANG: C.UTF-8
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - api-dbsrv01-data:/var/lib/mysql
+      - ./db/entrancedb/conf.d:/etc/mysql/conf.d/my.cnf
+      - ./db/entrancedb/sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3309:3306"
+  user-db01:
+    image: mysql:8.0.29
+    platform: linux/amd64
+    container_name: user-db01
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: userdb01
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_TCP_PORT: 3306
+      LANG: C.UTF-8
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - api-dbsrv02-data:/var/lib/mysql
+      - ./db/userdb/conf.d:/etc/mysql/conf.d/my.cnf
+      - ./db/userdb/sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3306"
+  payment-db01:
+    image: mysql:8.0.29
+    platform: linux/amd64
+    container_name: payment-db01
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: paymentdb01
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_TCP_PORT: 3306
+      LANG: C.UTF-8
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - api-dbsrv03-data:/var/lib/mysql
+      - ./db/paymentdb/conf.d:/etc/mysql/conf.d/my.cnf
+      - ./db/paymentdb/sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3308:3306"
+  authsrv01:
+    depends_on:
+      - usersrv01
+    build:
+      context: ../
+      dockerfile: docker/auth/Dockerfile
+      target: dev
+    environment:
+      ENV: DEV
+      PORT: 8081
+      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+    volumes:
+      - ../:/app
+    ports:
+      - "8081:8081"
+  usersrv01:
+    depends_on:
+      - userdb01
+    build:
+      context: ../
+      dockerfile: docker/user/Dockerfile
+      target: dev
+    environment:
+      ENV: DEV
+      PORT: 8082
+      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+    volumes:
+      - ../:/app
+    ports:
+      - "8082:8082"
+  entrancesrv01:
+    depends_on:
+      - paymentsrv01
+    build:
+      context: ../
+      dockerfile: docker/entrance/Dockerfile
+      target: dev
+    environment:
+      ENV: DEV
+      PORT: 8083
+      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+    volumes:
+      - ../:/app
+    ports:
+      - "8083:8083"
+  gatewaysrv01:
+    depends_on:
+      - authsrv01
+      - entrancesrv01
+    build:
+      context: ../
+      dockerfile: docker/entrance/Dockerfile
+      target: dev
+    environment:
+      ENV: DEV
+      PORT: 8080
+      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+    volumes:
+      - ../:/app
+    ports:
+      - "8080:8080"
+  paymentsrv01:
+    depends_on:
+      - paymentdb01
+    build:
+      context: ../
+      dockerfile: docker/payment/Dockerfile
+      target: dev
+    environment:
+      ENV: DEV
+      PORT: 8084
+      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+    volumes:
+      - ../:/app
+    ports:
+      - "8084:8084"
+volumes:
+  api-dbsrv01-data:
+  api-dbsrv02-data:
+  api-dbsrv03-data:

@@ -1,0 +1,16 @@
+
+.github/
+.vscode/
+doc/
+scenario/
+terraform/
+
+.env
+.gitignore
+.golangci.yml
+.octocov.yml
+*.md
+*.txt
+*.out
+
+LICENSE
