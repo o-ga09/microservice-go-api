@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "healthcheck/gen";
+
+import "google/api/annotations.proto";
+
+package healthcheck;
+
+service HealthCheckService {
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse){
+        option (google.api.http) = {
+            get: "/health"
+          };
+    };
+    rpc HealthCheckDB(HealthCheckRequest) returns (HealthCheckResponse){
+        option (google.api.http) = {
+            get: "/health/db"
+          };
+    };
+}
+
+message HealthCheckRequest {
+    string message = 1;
+}
+
+message HealthCheckResponse {
+    string message = 1;
+}

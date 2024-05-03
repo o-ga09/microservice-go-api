@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             (unknown)
-// source: services/entrance/grpc/entrance.proto
+// source: services/entrance/proto/entrance.proto
 
-package grpc
+package gen
 
 import (
 	context "context"
@@ -137,5 +137,5 @@ var EntranceService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "services/entrance/grpc/entrance.proto",
+	Metadata: "services/entrance/proto/entrance.proto",
 }
