@@ -3,40 +3,36 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"net"
 	"os"
 	"os/signal"
+	"strconv"
 
-	"google.golang.org/grpc"
+	"github.com/o-ga09/microservice-go-api/services/healthcheck/grpc"
+	"golang.org/x/sys/unix"
 )
 
 func main() {
-	if err := run(context.Background()); err != nil {
-		log.Fatal(err)
-	}
+	os.Exit(run(context.Background()))
 }
 
-func run(ctx context.Context) error {
-	port := os.Getenv("AUTHSERVICE_PORT")
-	listen, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
-	if err != nil {
-		return err
-	}
-	defer listen.Close()
+func run(ctx context.Context) int {
+	ctx, stop := signal.NotifyContext(ctx, unix.SIGTERM, unix.SIGINT)
+	defer stop()
 
-	s := grpc.NewServer()
+	p := os.Getenv("PORT")
+	port, _ := strconv.Atoi(p)
 
+	errCh := make(chan error, 1)
 	go func() {
-		log.Printf("sterting server on port %s", port)
-		s.Serve(listen)
+		errCh <- grpc.RunServer(ctx, port)
 	}()
 
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, os.Interrupt)
-	<-quit
-	log.Printf("shutting down server ...")
-	s.GracefulStop()
-
-	return nil
+	select {
+	case err := <-errCh:
+		fmt.Println(err.Error())
+		return 1
+	case <-ctx.Done():
+		fmt.Println("Shutting down...")
+		return 0
+	}
 }

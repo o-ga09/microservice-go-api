@@ -16,7 +16,7 @@ func run(ctx context.Context) int {
 	httpErrCh := make(chan error, 1)
 
 	go func() {
-		httpErrCh <- http.RunServer(ctx, 8081)
+		httpErrCh <- http.RunServer(ctx, 8080)
 	}()
 
 	select {
