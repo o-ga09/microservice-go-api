@@ -74,7 +74,7 @@ services:
       - "8081:8081"
   usersrv01:
     depends_on:
-      - userdb01
+      - user-db01
     build:
       context: ../
       dockerfile: docker/user/Dockerfile
@@ -120,7 +120,7 @@ services:
       - "8080:8080"
   paymentsrv01:
     depends_on:
-      - paymentdb01
+      - payment-db01
     build:
       context: ../
       dockerfile: docker/payment/Dockerfile

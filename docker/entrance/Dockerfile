@@ -30,4 +30,4 @@ WORKDIR /app
 COPY go.mod go.sum ./
 
 RUN go install github.com/cosmtrek/air@latest
-CMD ["air"]
+CMD ["air","-c",".air/.air.entrance.toml"]
