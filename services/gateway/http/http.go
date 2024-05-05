@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -59,6 +60,7 @@ func RunServer(ctx context.Context, port int) error {
 	errCh := make(chan error, 1)
 
 	go func() {
+		slog.Info(fmt.Sprintf("Starting gRPC server on port %d", port))
 		errCh <- server.ListenAndServe()
 	}()
 

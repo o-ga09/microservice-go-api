@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/o-ga09/microservice-go-api/services/gateway/http"
+	"github.com/o-ga09/microservice-go-api/services/payment/grpc"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func run(ctx context.Context) int {
 	port, _ := strconv.Atoi(p)
 
 	go func() {
-		httpErrCh <- http.RunServer(ctx, port)
+		httpErrCh <- grpc.RunServer(ctx, port)
 	}()
 
 	select {

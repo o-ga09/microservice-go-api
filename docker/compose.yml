@@ -108,7 +108,7 @@ services:
       - entrancesrv01
     build:
       context: ../
-      dockerfile: docker/entrance/Dockerfile
+      dockerfile: docker/gateway/Dockerfile
       target: dev
     environment:
       ENV: DEV
