@@ -4,7 +4,7 @@ import (
 	"context"
 
 	pkggrpc "github.com/o-ga09/microservice-go-api/pkg/grpc"
-	gen "github.com/o-ga09/microservice-go-api/services/healthcheck/proto"
+	healthcheckpb "github.com/o-ga09/microservice-go-api/services/healthcheck/proto"
 	"google.golang.org/grpc"
 )
 
@@ -23,6 +23,6 @@ func RunServer(ctx context.Context, port int) error {
 	svc := &server{}
 
 	return pkggrpc.NewServer(port, func(server *grpc.Server) {
-		gen.RegisterHealthCheckServiceServer(server, svc)
+		healthcheckpb.RegisterHealthCheckServiceServer(server, svc)
 	}).Start(ctx)
 }

@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: services/healthcheck/proto/health.proto
 
-package gen
+package proto
 
 import (
 	context "context"
@@ -24,6 +24,10 @@ const _ = grpc.SupportPackageIsVersion7
 type HealthCheckServiceClient interface {
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 	HealthCheckDB(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HealthCheckAuth(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HealthCheckEntrance(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HealthCheckPayment(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HealthCheckUser(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
 type healthCheckServiceClient struct {
@@ -52,12 +56,52 @@ func (c *healthCheckServiceClient) HealthCheckDB(ctx context.Context, in *Health
 	return out, nil
 }
 
+func (c *healthCheckServiceClient) HealthCheckAuth(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, "/healthcheck.HealthCheckService/HealthCheckAuth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *healthCheckServiceClient) HealthCheckEntrance(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, "/healthcheck.HealthCheckService/HealthCheckEntrance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *healthCheckServiceClient) HealthCheckPayment(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, "/healthcheck.HealthCheckService/HealthCheckPayment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *healthCheckServiceClient) HealthCheckUser(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, "/healthcheck.HealthCheckService/HealthCheckUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // HealthCheckServiceServer is the server API for HealthCheckService service.
 // All implementations must embed UnimplementedHealthCheckServiceServer
 // for forward compatibility
 type HealthCheckServiceServer interface {
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	HealthCheckDB(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	HealthCheckAuth(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	HealthCheckEntrance(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	HealthCheckPayment(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	HealthCheckUser(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedHealthCheckServiceServer()
 }
 
@@ -70,6 +114,18 @@ func (UnimplementedHealthCheckServiceServer) HealthCheck(context.Context, *Healt
 }
 func (UnimplementedHealthCheckServiceServer) HealthCheckDB(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheckDB not implemented")
+}
+func (UnimplementedHealthCheckServiceServer) HealthCheckAuth(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HealthCheckAuth not implemented")
+}
+func (UnimplementedHealthCheckServiceServer) HealthCheckEntrance(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HealthCheckEntrance not implemented")
+}
+func (UnimplementedHealthCheckServiceServer) HealthCheckPayment(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HealthCheckPayment not implemented")
+}
+func (UnimplementedHealthCheckServiceServer) HealthCheckUser(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HealthCheckUser not implemented")
 }
 func (UnimplementedHealthCheckServiceServer) mustEmbedUnimplementedHealthCheckServiceServer() {}
 
@@ -120,6 +176,78 @@ func _HealthCheckService_HealthCheckDB_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _HealthCheckService_HealthCheckAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HealthCheckServiceServer).HealthCheckAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/healthcheck.HealthCheckService/HealthCheckAuth",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HealthCheckServiceServer).HealthCheckAuth(ctx, req.(*HealthCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _HealthCheckService_HealthCheckEntrance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HealthCheckServiceServer).HealthCheckEntrance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/healthcheck.HealthCheckService/HealthCheckEntrance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HealthCheckServiceServer).HealthCheckEntrance(ctx, req.(*HealthCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _HealthCheckService_HealthCheckPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HealthCheckServiceServer).HealthCheckPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/healthcheck.HealthCheckService/HealthCheckPayment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HealthCheckServiceServer).HealthCheckPayment(ctx, req.(*HealthCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _HealthCheckService_HealthCheckUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HealthCheckServiceServer).HealthCheckUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/healthcheck.HealthCheckService/HealthCheckUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HealthCheckServiceServer).HealthCheckUser(ctx, req.(*HealthCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // HealthCheckService_ServiceDesc is the grpc.ServiceDesc for HealthCheckService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +262,22 @@ var HealthCheckService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HealthCheckDB",
 			Handler:    _HealthCheckService_HealthCheckDB_Handler,
+		},
+		{
+			MethodName: "HealthCheckAuth",
+			Handler:    _HealthCheckService_HealthCheckAuth_Handler,
+		},
+		{
+			MethodName: "HealthCheckEntrance",
+			Handler:    _HealthCheckService_HealthCheckEntrance_Handler,
+		},
+		{
+			MethodName: "HealthCheckPayment",
+			Handler:    _HealthCheckService_HealthCheckPayment_Handler,
+		},
+		{
+			MethodName: "HealthCheckUser",
+			Handler:    _HealthCheckService_HealthCheckUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

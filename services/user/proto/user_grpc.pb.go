@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: services/user/proto/user.proto
 
-package gen
+package proto
 
 import (
 	context "context"

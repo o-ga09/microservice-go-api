@@ -4,19 +4,19 @@ import (
 	"context"
 	"log/slog"
 
-	gen "github.com/o-ga09/microservice-go-api/services/payment/proto"
+	paymentpb "github.com/o-ga09/microservice-go-api/services/payment/proto"
 )
 
 type server struct {
-	gen.UnimplementedPaymentServiceServer
+	paymentpb.UnimplementedPaymentServiceServer
 }
 
-func (s *server) RecordTransaction(ctx context.Context, in *gen.RecordTransactionRequest) (*gen.RecordTransactionResponse, error) {
+func (s *server) RecordTransaction(ctx context.Context, in *paymentpb.RecordTransactionRequest) (*paymentpb.RecordTransactionResponse, error) {
 	slog.Info("RecordTransaction")
-	return &gen.RecordTransactionResponse{}, nil
+	return &paymentpb.RecordTransactionResponse{}, nil
 }
 
-func (s *server) ProcessPayment(ctx context.Context, in *gen.ProcessPaymentRequest) (*gen.ProcessPaymentResponse, error) {
+func (s *server) ProcessPayment(ctx context.Context, in *paymentpb.ProcessPaymentRequest) (*paymentpb.ProcessPaymentResponse, error) {
 	slog.Info("ProcessPayment")
-	return &gen.ProcessPaymentResponse{}, nil
+	return &paymentpb.ProcessPaymentResponse{}, nil
 }

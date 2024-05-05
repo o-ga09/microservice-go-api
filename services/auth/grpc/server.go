@@ -4,24 +4,24 @@ import (
 	"context"
 	"log/slog"
 
-	gen "github.com/o-ga09/microservice-go-api/services/auth/proto"
+	authpb "github.com/o-ga09/microservice-go-api/services/auth/proto"
 )
 
 type server struct {
-	gen.UnimplementedAuthServiceServer
+	authpb.UnimplementedAuthServiceServer
 }
 
-func (s *server) SignUp(ctx context.Context, in *gen.SignUpRequest) (*gen.SignUpResponse, error) {
+func (s *server) SignUp(ctx context.Context, in *authpb.SignUpRequest) (*authpb.SignUpResponse, error) {
 	slog.Info("SignUp")
-	return &gen.SignUpResponse{}, nil
+	return &authpb.SignUpResponse{}, nil
 }
 
-func (s *server) SignIn(ctx context.Context, in *gen.SignInRequest) (*gen.SignInResponse, error) {
+func (s *server) SignIn(ctx context.Context, in *authpb.SignInRequest) (*authpb.SignInResponse, error) {
 	slog.Info("SignIn")
-	return &gen.SignInResponse{}, nil
+	return &authpb.SignInResponse{}, nil
 }
 
-func (s *server) SignOut(ctx context.Context, in *gen.SignOutRequest) (*gen.SignOutResponse, error) {
+func (s *server) SignOut(ctx context.Context, in *authpb.SignOutRequest) (*authpb.SignOutResponse, error) {
 	slog.Info("SignOut")
-	return &gen.SignOutResponse{}, nil
+	return &authpb.SignOutResponse{}, nil
 }

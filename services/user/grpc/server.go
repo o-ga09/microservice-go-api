@@ -4,24 +4,24 @@ import (
 	"context"
 	"log/slog"
 
-	gen "github.com/o-ga09/microservice-go-api/services/user/proto"
+	userpb "github.com/o-ga09/microservice-go-api/services/user/proto"
 )
 
 type server struct {
-	gen.UnimplementedUserServiceServer
+	userpb.UnimplementedUserServiceServer
 }
 
-func (s *server) GetUsers(ctx context.Context, in *gen.UserRequest) (*gen.UserResponse, error) {
+func (s *server) GetUsers(ctx context.Context, in *userpb.UserRequest) (*userpb.UserResponse, error) {
 	slog.Info("GetUsers")
-	return &gen.UserResponse{}, nil
+	return &userpb.UserResponse{}, nil
 }
 
-func (s *server) GetUserById(ctx context.Context, in *gen.UserRequest) (*gen.UserResponse, error) {
+func (s *server) GetUserById(ctx context.Context, in *userpb.UserRequest) (*userpb.UserResponse, error) {
 	slog.Info("GetUserById")
-	return &gen.UserResponse{}, nil
+	return &userpb.UserResponse{}, nil
 }
 
-func (s *server) SaveUser(ctx context.Context, in *gen.UserRequest) (*gen.UserResponse, error) {
+func (s *server) SaveUser(ctx context.Context, in *userpb.UserRequest) (*userpb.UserResponse, error) {
 	slog.Info("SaveUser")
-	return &gen.UserResponse{}, nil
+	return &userpb.UserResponse{}, nil
 }

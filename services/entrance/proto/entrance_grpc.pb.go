@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: services/entrance/proto/entrance.proto
 
-package gen
+package proto
 
 import (
 	context "context"

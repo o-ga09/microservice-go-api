@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "payment/gen";
+option go_package = "payment/proto";
 
 package entpaymentance;
 
