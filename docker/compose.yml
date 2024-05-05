@@ -133,6 +133,28 @@ services:
       - ../:/app
     ports:
       - "8084:8084"
+  healthchwcksrv01:
+    depends_on:
+      - usersrv01
+      - authsrv01
+      - entrancesrv01
+      - gatewaysrv01
+      - paymentsrv01
+      - payment-db01
+      - user-db01
+      - entrance-db01
+    build:
+      context: ../
+      dockerfile: docker/healthcheck/Dockerfile
+      target: dev
+    environment:
+      ENV: DEV
+      PORT: 8085
+      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+    volumes:
+      - ../:/app
+    ports:
+      - "8085:8085"
 volumes:
   api-dbsrv01-data:
   api-dbsrv02-data:

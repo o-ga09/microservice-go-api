@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strconv"
 
 	"github.com/o-ga09/microservice-go-api/services/healthcheck/grpc"
 	"golang.org/x/sys/unix"
@@ -18,9 +19,12 @@ func run(ctx context.Context) int {
 	ctx, stop := signal.NotifyContext(ctx, unix.SIGTERM, unix.SIGINT)
 	defer stop()
 
+	p := os.Getenv("PORT")
+	port, _ := strconv.Atoi(p)
+
 	errCh := make(chan error, 1)
 	go func() {
-		errCh <- grpc.RunServer(ctx, 8080)
+		errCh <- grpc.RunServer(ctx, port)
 	}()
 
 	select {
