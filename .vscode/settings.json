@@ -1,5 +1,6 @@
 {
     "yaml.schemas": {
-        "swaggerviewer:openapi": "file:///Users/taichi/src/microservice-go-api/docs/spec.yml"
+        "swaggerviewer:openapi": "file:///Users/taichi/src/microservice-go-api/docs/spec.yml",
+        "https://golangci-lint.run/jsonschema/golangci.jsonschema.json": "file:///Users/taichi/src/microservice-go-api/.golangci.yml"
     }
 }

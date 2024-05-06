@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"strconv"
 
-	"github.com/o-ga09/microservice-go-api/services/auth/grpc"
+	"github.com/o-ga09/microservice-go-api/services/healthcheck/grpc"
 	"golang.org/x/sys/unix"
 )
 

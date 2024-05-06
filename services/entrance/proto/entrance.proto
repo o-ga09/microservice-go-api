@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = "entrance/proto";
+
+import "google/api/annotations.proto";
+
+package entrance;
+
+service EntranceService {
+    rpc Health(HealthCheckRequest) returns (HealthCheckResponse);
+    rpc CheckIn(CheckInRequest) returns (CheckInResponse){
+        option (google.api.http) = {
+            post: "/checkin"
+            body: "*"
+        };
+    };
+    rpc CheckOut(CheckOutRequest) returns (CheckOutResponse){
+        option (google.api.http) = {
+            post: "/checkout"
+            body: "*"
+        };
+    };
+}
+
+message CheckInRequest {
+    string user_id = 1;
+    string user_name = 2;
+    string type = 3;
+    string paymentmethod = 4;
+    string checkin_time = 5;
+    string checkout_time = 6;
+    string user_token = 7;
+}
+
+message CheckInResponse {
+    string message = 1;
+    string code = 2;
+}
+
+message CheckOutRequest {
+    string user_id = 1;
+    string user_name = 2;
+    string type = 3;
+    string paymentmethod = 4;
+    string checkin_time = 5;
+    string checkout_time = 6;
+    string user_token = 7;
+}
+
+message CheckOutResponse {
+    string message = 1;
+    string code = 2;
+}
+
+message HealthCheckRequest {
+    string message = 1;
+}
+
+message HealthCheckResponse {
+    string message = 1;
+}
