@@ -5,6 +5,7 @@ option go_package = "payment/proto";
 package entpaymentance;
 
 service PaymentService {
+    rpc Health(HealthCheckRequest) returns (HealthCheckResponse);
     rpc RecordTransaction(RecordTransactionRequest) returns (RecordTransactionResponse);
     rpc ProcessPayment(ProcessPaymentRequest) returns (ProcessPaymentResponse);
 }
@@ -35,4 +36,12 @@ message ProcessPaymentRequest {
 message ProcessPaymentResponse {
     string message = 1;
     string code = 2;
+}
+
+message HealthCheckRequest {
+    string message = 1;
+}
+
+message HealthCheckResponse {
+    string message = 1;
 }

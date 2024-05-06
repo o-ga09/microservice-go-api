@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 package entrance;
 
 service EntranceService {
+    rpc Health(HealthCheckRequest) returns (HealthCheckResponse);
     rpc CheckIn(CheckInRequest) returns (CheckInResponse){
         option (google.api.http) = {
             post: "/checkin"
@@ -49,4 +50,12 @@ message CheckOutRequest {
 message CheckOutResponse {
     string message = 1;
     string code = 2;
+}
+
+message HealthCheckRequest {
+    string message = 1;
+}
+
+message HealthCheckResponse {
+    string message = 1;
 }

@@ -8,7 +8,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
-      MYSQL_DATABASE: authdb01
+      MYSQL_DATABASE: entrancedb01
       MYSQL_ROOT_PASSWORD: pass
       MYSQL_TCP_PORT: 3306
       LANG: C.UTF-8
@@ -67,7 +67,6 @@ services:
     environment:
       ENV: DEV
       PORT: 8081
-      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
     volumes:
       - ../:/app
     ports:
@@ -82,7 +81,7 @@ services:
     environment:
       ENV: DEV
       PORT: 8082
-      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+      USER_DB: user:pass@tcp(user-db01)/userdb01?charset=utf8&parseTime=True&loc=Local
     volumes:
       - ../:/app
     ports:
@@ -97,7 +96,7 @@ services:
     environment:
       ENV: DEV
       PORT: 8083
-      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+      ENTRANCE_DB: user:pass@tcp(entrance-db01)/entrancedb01?charset=utf8&parseTime=True&loc=Local
     volumes:
       - ../:/app
     ports:
@@ -128,7 +127,7 @@ services:
     environment:
       ENV: DEV
       PORT: 8084
-      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+      PAYMENT_DB: user:pass@tcp(payment-db01)/paymentdb01?charset=utf8&parseTime=True&loc=Local
     volumes:
       - ../:/app
     ports:
@@ -150,7 +149,10 @@ services:
     environment:
       ENV: DEV
       PORT: 8085
-      DATABASE_URL: mh-api:P@ssw0rd@tcp(mh-api-dbsrv01)/mh-api?charset=utf8&parseTime=True&loc=Local
+      AUTH_HOST: "authsrv01:8081"
+      USER_HOST: "usersrv01:8082"
+      ENTRANCE_HOST: "entrancesrv01:8083"
+      PAYMENT_HOST: "paymentsrv01:8084"
     volumes:
       - ../:/app
     ports:

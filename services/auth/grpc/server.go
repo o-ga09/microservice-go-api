@@ -11,6 +11,11 @@ type server struct {
 	authpb.UnimplementedAuthServiceServer
 }
 
+func (s *server) Health(ctx context.Context, in *authpb.HealthCheckRequest) (*authpb.HealthCheckResponse, error) {
+	slog.Info("Health")
+	return &authpb.HealthCheckResponse{Message: "OK Healthy!"}, nil
+}
+
 func (s *server) SignUp(ctx context.Context, in *authpb.SignUpRequest) (*authpb.SignUpResponse, error) {
 	slog.Info("SignUp")
 	return &authpb.SignUpResponse{}, nil

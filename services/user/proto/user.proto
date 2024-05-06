@@ -5,6 +5,7 @@ option go_package = "user/proto";
 package user;
 
 service UserService {
+    rpc Health(HealthCheckRequest) returns (HealthCheckResponse);
     rpc GetUsers(UserRequest) returns (UserResponse);
     rpc GetUserById(UserRequest) returns (UserResponse);
     rpc SaveUser(UserRequest) returns (UserResponse);
@@ -23,3 +24,11 @@ message UserResponse {
     string user_password = 4; 
 }
 
+
+message HealthCheckRequest {
+    string message = 1;
+}
+
+message HealthCheckResponse {
+    string message = 1;
+}

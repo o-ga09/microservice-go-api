@@ -4,7 +4,7 @@ run:
 
 .PHONY: stop
 down:
-	docker-compose -f docker/compose.yml down
+	docker compose -f docker/compose.yml down --volumes all --remove-orphans
 
 .PHONY: clean
 rm:

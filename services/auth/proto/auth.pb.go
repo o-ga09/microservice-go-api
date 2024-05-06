@@ -383,6 +383,100 @@ func (x *SignOutResponse) GetMessage() string {
 	return ""
 }
 
+type HealthCheckRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *HealthCheckRequest) Reset() {
+	*x = HealthCheckRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_services_auth_proto_auth_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HealthCheckRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckRequest) ProtoMessage() {}
+
+func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_services_auth_proto_auth_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead.
+func (*HealthCheckRequest) Descriptor() ([]byte, []int) {
+	return file_services_auth_proto_auth_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *HealthCheckRequest) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type HealthCheckResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+}
+
+func (x *HealthCheckResponse) Reset() {
+	*x = HealthCheckResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_services_auth_proto_auth_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HealthCheckResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckResponse) ProtoMessage() {}
+
+func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_services_auth_proto_auth_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead.
+func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
+	return file_services_auth_proto_auth_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *HealthCheckResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_services_auth_proto_auth_proto protoreflect.FileDescriptor
 
 var file_services_auth_proto_auth_proto_rawDesc = []byte{
@@ -418,8 +512,18 @@ var file_services_auth_proto_auth_proto_rawDesc = []byte{
 	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
 	0x22, 0x2b, 0x0a, 0x0f, 0x53, 0x69, 0x67, 0x6e, 0x4f, 0x75, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x32, 0xfb, 0x01,
-	0x0a, 0x0b, 0x41, 0x75, 0x74, 0x68, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4c, 0x0a,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x2e, 0x0a,
+	0x12, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x2f, 0x0a,
+	0x13, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x32, 0xba,
+	0x02, 0x0a, 0x0b, 0x41, 0x75, 0x74, 0x68, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x3d,
+	0x0a, 0x06, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x12, 0x18, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e,
+	0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x19, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68,
+	0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4c, 0x0a,
 	0x06, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x12, 0x13, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x53,
 	0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x61,
 	0x75, 0x74, 0x68, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
@@ -451,24 +555,28 @@ func file_services_auth_proto_auth_proto_rawDescGZIP() []byte {
 	return file_services_auth_proto_auth_proto_rawDescData
 }
 
-var file_services_auth_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_services_auth_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_services_auth_proto_auth_proto_goTypes = []interface{}{
-	(*SignUpRequest)(nil),   // 0: auth.SignUpRequest
-	(*SignUpResponse)(nil),  // 1: auth.SignUpResponse
-	(*SignInRequest)(nil),   // 2: auth.SignInRequest
-	(*SignInResponse)(nil),  // 3: auth.SignInResponse
-	(*SignOutRequest)(nil),  // 4: auth.SignOutRequest
-	(*SignOutResponse)(nil), // 5: auth.SignOutResponse
+	(*SignUpRequest)(nil),       // 0: auth.SignUpRequest
+	(*SignUpResponse)(nil),      // 1: auth.SignUpResponse
+	(*SignInRequest)(nil),       // 2: auth.SignInRequest
+	(*SignInResponse)(nil),      // 3: auth.SignInResponse
+	(*SignOutRequest)(nil),      // 4: auth.SignOutRequest
+	(*SignOutResponse)(nil),     // 5: auth.SignOutResponse
+	(*HealthCheckRequest)(nil),  // 6: auth.HealthCheckRequest
+	(*HealthCheckResponse)(nil), // 7: auth.HealthCheckResponse
 }
 var file_services_auth_proto_auth_proto_depIdxs = []int32{
-	0, // 0: auth.AuthService.SignUp:input_type -> auth.SignUpRequest
-	2, // 1: auth.AuthService.SignIn:input_type -> auth.SignInRequest
-	4, // 2: auth.AuthService.SignOut:input_type -> auth.SignOutRequest
-	1, // 3: auth.AuthService.SignUp:output_type -> auth.SignUpResponse
-	3, // 4: auth.AuthService.SignIn:output_type -> auth.SignInResponse
-	5, // 5: auth.AuthService.SignOut:output_type -> auth.SignOutResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 0: auth.AuthService.Health:input_type -> auth.HealthCheckRequest
+	0, // 1: auth.AuthService.SignUp:input_type -> auth.SignUpRequest
+	2, // 2: auth.AuthService.SignIn:input_type -> auth.SignInRequest
+	4, // 3: auth.AuthService.SignOut:input_type -> auth.SignOutRequest
+	7, // 4: auth.AuthService.Health:output_type -> auth.HealthCheckResponse
+	1, // 5: auth.AuthService.SignUp:output_type -> auth.SignUpResponse
+	3, // 6: auth.AuthService.SignIn:output_type -> auth.SignInResponse
+	5, // 7: auth.AuthService.SignOut:output_type -> auth.SignOutResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -552,6 +660,30 @@ func file_services_auth_proto_auth_proto_init() {
 				return nil
 			}
 		}
+		file_services_auth_proto_auth_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HealthCheckRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_services_auth_proto_auth_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HealthCheckResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -559,7 +691,7 @@ func file_services_auth_proto_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_services_auth_proto_auth_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

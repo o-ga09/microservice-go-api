@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EntranceServiceClient interface {
+	Health(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 	CheckIn(ctx context.Context, in *CheckInRequest, opts ...grpc.CallOption) (*CheckInResponse, error)
 	CheckOut(ctx context.Context, in *CheckOutRequest, opts ...grpc.CallOption) (*CheckOutResponse, error)
 }
@@ -32,6 +33,15 @@ type entranceServiceClient struct {
 
 func NewEntranceServiceClient(cc grpc.ClientConnInterface) EntranceServiceClient {
 	return &entranceServiceClient{cc}
+}
+
+func (c *entranceServiceClient) Health(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, "/entrance.EntranceService/Health", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *entranceServiceClient) CheckIn(ctx context.Context, in *CheckInRequest, opts ...grpc.CallOption) (*CheckInResponse, error) {
@@ -56,6 +66,7 @@ func (c *entranceServiceClient) CheckOut(ctx context.Context, in *CheckOutReques
 // All implementations must embed UnimplementedEntranceServiceServer
 // for forward compatibility
 type EntranceServiceServer interface {
+	Health(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	CheckIn(context.Context, *CheckInRequest) (*CheckInResponse, error)
 	CheckOut(context.Context, *CheckOutRequest) (*CheckOutResponse, error)
 	mustEmbedUnimplementedEntranceServiceServer()
@@ -65,6 +76,9 @@ type EntranceServiceServer interface {
 type UnimplementedEntranceServiceServer struct {
 }
 
+func (UnimplementedEntranceServiceServer) Health(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Health not implemented")
+}
 func (UnimplementedEntranceServiceServer) CheckIn(context.Context, *CheckInRequest) (*CheckInResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckIn not implemented")
 }
@@ -82,6 +96,24 @@ type UnsafeEntranceServiceServer interface {
 
 func RegisterEntranceServiceServer(s grpc.ServiceRegistrar, srv EntranceServiceServer) {
 	s.RegisterService(&EntranceService_ServiceDesc, srv)
+}
+
+func _EntranceService_Health_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EntranceServiceServer).Health(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/entrance.EntranceService/Health",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EntranceServiceServer).Health(ctx, req.(*HealthCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _EntranceService_CheckIn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -127,6 +159,10 @@ var EntranceService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "entrance.EntranceService",
 	HandlerType: (*EntranceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Health",
+			Handler:    _EntranceService_Health_Handler,
+		},
 		{
 			MethodName: "CheckIn",
 			Handler:    _EntranceService_CheckIn_Handler,
