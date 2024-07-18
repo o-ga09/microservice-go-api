@@ -1,4 +1,6 @@
-# gRPC　＋　Go　でつくるmicroservicesなREST API
+# gRPC　＋　Go　でつくるmicroservicesな API
+
+[![lint and test](https://github.com/o-ga09/microservice-go-api/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/o-ga09/microservice-go-api/actions/workflows/lint_and_test.yml)
 
 ## 概要
 
@@ -7,7 +9,7 @@
 
 ## 構成
 
-![architecture](./docs/image.png)
+![architecture](./docs/architecture.png)
 
 ## 実行方法
 
