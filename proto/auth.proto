@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "auth/grpc";
+
+import "google/api/annotations.proto";
+
+package auth;
+
+service AuthService {
+    rpc SignUp(SignUpRequest) returns (SignUpResponse){
+        option (google.api.http) = {
+            post: "/auth/signup"
+            body: "*"
+          };
+    };
+    rpc SignIn(SignInRequest) returns (SignInResponse){
+        option (google.api.http) = {
+            post: "/auth/signin"
+            body: "*"
+          };
+    };
+    rpc SignOut(SignOutRequest) returns (SignOutResponse){
+        option (google.api.http) = {
+            post: "/auth/signout"
+            body: "*"
+          };
+    };
+}
+
+message SignUpRequest {
+    string email = 1;
+    string password = 2;
+    string name = 3;
+}
+
+message SignUpResponse {
+    string id = 1;
+    string token = 2;
+    string email = 3;
+    string password = 4;
+    string name = 5;
+}
+
+message SignInRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message SignInResponse {
+    string id = 1;
+    string token = 2;
+    string name = 3;
+}
+
+message SignOutRequest {
+    string token = 1;
+    string id = 2;
+}
+
+message SignOutResponse {
+    string message = 1;
+}
