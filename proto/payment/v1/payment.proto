@@ -1,40 +1,38 @@
 syntax = "proto3";
 
-option go_package = "entrance/grpc";
+option go_package = "services/payment;payment";
 
-package entrance;
+package payment.v1;
 
-service EntranceService {
-    rpc CheckIn(CheckInRequest) returns (CheckInResponse);
-    rpc CheckOut(CheckOutRequest) returns (CheckOutResponse);
+service PaymentService {
+    rpc RecordTransaction(RecordTransactionRequest) returns (RecordTransactionResponse);
+    rpc ProcessPayment(ProcessPaymentRequest) returns (ProcessPaymentResponse);
 }
 
-message CheckInRequest {
+message RecordTransactionRequest {
     string user_id = 1;
     string user_name = 2;
     string type = 3;
     string paymentmethod = 4;
     string checkin_time = 5;
     string checkout_time = 6;
-    string user_token = 7;
 }
 
-message CheckInResponse {
+message RecordTransactionResponse {
     string message = 1;
     string code = 2;
 }
 
-message CheckOutRequest {
+message ProcessPaymentRequest {
     string user_id = 1;
     string user_name = 2;
     string type = 3;
     string paymentmethod = 4;
     string checkin_time = 5;
     string checkout_time = 6;
-    string user_token = 7;
 }
 
-message CheckOutResponse {
+message ProcessPaymentResponse {
     string message = 1;
     string code = 2;
 }

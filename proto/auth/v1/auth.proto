@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-option go_package = "auth/grpc";
+option go_package = "services/auth;auth";
 
 import "google/api/annotations.proto";
 
-package auth;
+package auth.v1;
 
 service AuthService {
     rpc SignUp(SignUpRequest) returns (SignUpResponse){

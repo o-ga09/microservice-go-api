@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option go_package = "services/user;user";
+
+package user.v1;
+
+service UserService {
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+    rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+    rpc SaveUser(SaveUserRequest) returns (SaveUserResponse);
+}
+
+
+
+message GetUserByIdRequest {
+    UserRequest user = 1;
+}
+
+message GetUserByIdResponse {
+    UserResponse user = 1;
+}
+message GetUsersRequest {
+    UserRequest user = 1;
+}
+message GetUsersResponse {
+    repeated UserResponse users = 1;
+}
+message SaveUserRequest {
+    UserRequest user = 1;
+}
+message SaveUserResponse {
+    UserResponse user = 1;
+}
+
+message UserRequest {
+    string user_name = 1;
+    string user_email = 2;
+    string user_password = 3;    
+}
+
+message UserResponse {
+    string user_id = 1;
+    string user_name = 2;
+    string user_email = 3;
+    string user_password = 4; 
+}
