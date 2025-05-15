@@ -1,5 +1,6 @@
 {
     "yaml.schemas": {
-        "swaggerviewer:openapi": "file:///Users/taichi/src/microservice-go-api/docs/spec.yml"
+        "swaggerviewer:openapi": "file:///Users/taichi/src/microservice-go-api/docs/spec.yml",
+        "https://json.schemastore.org/buf.gen.json": "file:///Users/taichi/src/microservice-go-api/buf.gen.yaml"
     }
 }
