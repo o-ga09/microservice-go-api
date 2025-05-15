@@ -1,17 +1,14 @@
 ---
 
-version: v1beta1
+version: v1
 
 plugins:
-  - name: go
-    path: protoc-gen-go
-    out: .
+  - plugin: buf.build/protocolbuffers/go:v1.32.0
+    out: services
     opt: paths=source_relative
-  - name: go-grpc
-    path: protoc-gen-go-grpc
-    out: .
+  - plugin: buf.build/grpc/go:v1.3.0
+    out: services
     opt: paths=source_relative
-  - name: grpc-gateway
-    path: protoc-gen-grpc-gateway
-    out: .
+  - plugin: buf.build/grpc-ecosystem/gateway:v2.19.1
+    out: services
     opt: paths=source_relative

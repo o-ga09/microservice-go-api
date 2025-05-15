@@ -1,0 +1,4 @@
+version: v1
+name: buf.build/o-ga09/microservice-go-api
+deps:
+  - buf.build/googleapis/googleapis
