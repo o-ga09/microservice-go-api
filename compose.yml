@@ -1,0 +1,118 @@
+version: "3.9"
+services:
+  entrance-db:
+    container_name: entrance-db
+    image: mysql:8.0
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: entrance
+      MYSQL_USER: user
+      MYSQL_PASSWORD: P@ssw0rd
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+  payment-db:
+    container_name: payment-db
+    image: mysql:8.0
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: payment
+      MYSQL_USER: user
+      MYSQL_PASSWORD: P@ssw0rd
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+  user-db:
+    container_name: user-db
+    image: mysql:8.0
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: user
+      MYSQL_USER: user
+      MYSQL_PASSWORD: P@ssw0rd
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+  auth-service:
+    container_name: auth-service
+    build:
+      context: .
+      dockerfile: docker/auth/Dockerfile
+      target: dev
+    environment:
+      ENV: local
+      GIN_MODE: release
+      APP_NAME: auth-service
+      PORT: 8080
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:8080"
+  payment-service:
+    container_name: payment-service
+    depends_on:
+      - payment-db
+    build:
+      context: .
+      dockerfile: docker/payment/Dockerfile
+      target: dev
+    environment:
+      ENV: local
+      GIN_MODE: release
+      APP_NAME: payment-service
+      PORT: 8080
+      DATABASE_URL: user:P@ssw0rd@tcp(payment-db:3306)/payment?parseTime=true
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:8080"
+  entrance-service:
+    container_name: entrance-service
+    depends_on:
+      - entrance-db
+    build:
+      context: .
+      dockerfile: docker/entrance/Dockerfile
+      target: dev
+    environment:
+      ENV: local
+      GIN_MODE: release
+      APP_NAME: entrance-service
+      PORT: 8080
+      DATABASE_URL: user:P@ssw0rd@tcp(entrance-db:3306)/entrance?parseTime=true
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:8080"
+  user-service:
+    container_name: user-service
+    depends_on:
+      - user-db
+    build:
+      context: .
+      dockerfile: docker/user/Dockerfile
+      target: dev
+    environment:
+      ENV: local
+      GIN_MODE: release
+      APP_NAME: user-service
+      PORT: 8080
+      DATABASE_URL: user:P@ssw0rd@tcp(user-db:3306)/user?parseTime=true
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:8080"
+volumes:
+  db_data:
